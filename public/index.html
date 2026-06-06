@@ -458,10 +458,8 @@ function paintDisposition(r){
       </div>
       ${r.guidelines_applied ? `<div class="guidelines-list"><b>Guidelines applied:</b> ${r.guidelines_applied.join(' · ')}</div>` : ''}
     </div>
-    <div style="display:flex;gap:8px;margin-bottom:8px">
-      <span style="font-size:11px;color:var(--ink-faint);align-self:center;flex:1">Auditor decision</span>
-      <button class="btn-ghost btn-sm" onclick="alert('Accepted. (Demo)')">Accept</button>
-      <button class="btn-ghost btn-sm" onclick="alert('Override logged. (Demo)')">Override</button>
+    <div style="margin-bottom:8px;padding:9px 12px;background:var(--line-soft);border-radius:8px;font-size:11.5px;color:var(--ink-soft);line-height:1.5">
+      &#128203; <b style="color:var(--ink)">Recommendation surfaced to auditor.</b> Auditor decision workflow — accept, override, escalate — is scoped for the next build phase.
     </div>`;
   body.insertAdjacentHTML('beforeend', html);
 }
