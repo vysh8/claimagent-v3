@@ -398,11 +398,18 @@ function paintResult(r){
   paintDisposition(r);
 }
 
+// REPLACE the existing paintDisposition function in public/index.html with this version.
+// Find: "function paintDisposition(r){" and replace the entire function.
+
 function paintDisposition(r){
   const body = document.getElementById('agentBody');
-  const billedPay = payFor(cases[activeIdx].drgBilled);
-  const finalPay = r.disposition==='pend' ? null : payFor(r.drgFinal);
-  const impact = r.disposition==='validate' ? 0 : swing;
+
+  // Use verified payment figures from the server — never client-computed
+  const p = r._payment || {};
+  const billedPay  = p.billedPay  != null ? p.billedPay  : payFor(cases[activeIdx].drgBilled);
+  const finalPay   = p.finalPay   != null ? p.finalPay   : (r.disposition==='pend' ? null : payFor(r.drgFinal));
+  const impact     = p.impact     != null ? p.impact     : (r.disposition==='validate' ? 0 : swing);
+  const impactType = p.impactType || (r.disposition==='validate' ? 'zero' : r.disposition==='pend' ? 'risk' : 'pos');
 
   const html = `
     <div class="dispo ${r.disposition}" style="animation:rise .4s forwards">
@@ -411,7 +418,12 @@ function paintDisposition(r){
       <div class="fin">
         <div class="fin-box"><div class="fin-lbl">Billed</div><div class="fin-amt mono">${fmt(billedPay)}</div></div>
         <div class="fin-box"><div class="fin-lbl">${r.disposition==='pend'?'Pending':'Should pay'}</div><div class="fin-amt mono">${fmt(finalPay)}</div></div>
-        <div class="fin-box"><div class="fin-lbl">${r.disposition==='validate'?'Adjustment':r.disposition==='pend'?'At risk':'Recovered'}</div><div class="fin-amt mono" style="color:${r.disposition==='validate'?'var(--emerald)':r.disposition==='pend'?'var(--amber)':'var(--rose)'}">${impact===0?'$0':(r.disposition==='pend'?'≥ ':'')+fmt(impact)}</div></div>
+        <div class="fin-box">
+          <div class="fin-lbl">${r.disposition==='validate'?'Adjustment':r.disposition==='pend'?'At risk':'Recovered'}</div>
+          <div class="fin-amt mono" style="color:${impactType==='zero'?'var(--emerald)':impactType==='risk'?'var(--amber)':'var(--rose)'}">
+            ${impact===0?'$0':(r.disposition==='pend'?'≥ ':'')+fmt(impact)}
+          </div>
+        </div>
       </div>
       <div class="narrative">
         <span class="nh">Clinical finding</span>
@@ -419,6 +431,9 @@ function paintDisposition(r){
         <div style="margin-top:8px"><span class="nh">Recommended action</span>${r.recommend}</div>
       </div>
       ${r.guidelines_applied ? `<div class="guidelines-list"><b>Guidelines applied:</b> ${r.guidelines_applied.join(' · ')}</div>` : ''}
+      <div style="margin-top:10px;font-size:10.5px;color:var(--ink-faint)">
+        Rate basis: DRG 871 RW ${p.rw871||'1.9425'} (verified CMS FY2026) · DRG 872 RW ${p.rw872||'1.0299'} (verified CMS FY2024) · $${(p.base||7000).toLocaleString()} blended IPPS base
+      </div>
     </div>
     <div style="margin-bottom:8px;padding:9px 12px;background:var(--line-soft);border-radius:8px;font-size:11.5px;color:var(--ink-soft);line-height:1.5">
       &#128203; <b style="color:var(--ink)">Recommendation surfaced to auditor.</b> Auditor decision workflow — accept, override, escalate — is scoped for the next build phase.
