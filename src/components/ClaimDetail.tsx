@@ -48,6 +48,7 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
   const [claim, setClaim] = useState<Claim>(initialClaim);
   const [ocrBusy, setOcrBusy] = useState(false);
   const [ocrStatus, setOcrStatus] = useState("");
+  const [ocrError, setOcrError] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [visibleSteps, setVisibleSteps] = useState(0);
   const [chatInput, setChatInput] = useState("");
@@ -76,13 +77,17 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
     e.target.value = "";
 
     setOcrBusy(true);
+    setOcrError(false);
     setOcrStatus("Uploading chart…");
 
     try {
       const form = new FormData();
       form.append("file", file);
       const chartRes = await fetch(`/api/claims/${claim.id}/charts`, { method: "POST", body: form });
-      if (!chartRes.ok) throw new Error("Chart upload failed");
+      if (!chartRes.ok) {
+        const body = await chartRes.json().catch(() => ({}));
+        throw new Error(body.error || `Chart upload failed (${chartRes.status})`);
+      }
       const chart = await chartRes.json();
 
       const pages = await runOcr(file, (info) => {
@@ -94,16 +99,22 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
       });
 
       for (const page of pages) {
-        await fetch(`/api/claims/${claim.id}/charts/${chart.id}/hocr`, {
+        const hocrRes = await fetch(`/api/claims/${claim.id}/charts/${chart.id}/hocr`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ extractedText: page.text, hocr: page.hocr, pageNumber: page.pageNumber }),
         });
+        if (!hocrRes.ok) {
+          const body = await hocrRes.json().catch(() => ({}));
+          throw new Error(body.error || `Failed to save OCR output for page ${page.pageNumber} (${hocrRes.status})`);
+        }
       }
 
       setOcrStatus("OCR complete");
       await refreshClaim();
     } catch (err) {
+      console.error("Chart upload/OCR failed:", err);
+      setOcrError(true);
       setOcrStatus(`Error: ${(err as Error).message}`);
     } finally {
       setOcrBusy(false);
@@ -224,9 +235,12 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
               <input ref={fileInputRef} type="file" accept=".pdf,.png,.jpg,.jpeg" className="hidden" onChange={handleFileSelected} />
             </div>
             <div className="p-4">
-              {ocrBusy && (
-                <div className="text-xs mb-3 flex items-center gap-2" style={{ color: "var(--ink-soft)" }}>
-                  <span className="spinner" /> {ocrStatus}
+              {(ocrBusy || ocrError) && ocrStatus && (
+                <div
+                  className="text-xs mb-3 flex items-center gap-2"
+                  style={{ color: ocrError ? "var(--rose)" : "var(--ink-soft)" }}
+                >
+                  {ocrBusy && <span className="spinner" />} {ocrStatus}
                 </div>
               )}
               {!latestChart && !ocrBusy && (
