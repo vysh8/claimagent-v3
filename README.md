@@ -31,7 +31,6 @@ Fill in `.env`:
 |---|---|
 | `DATABASE_URL` | Postgres connection string |
 | `ANTHROPIC_API_KEY` | Claude API key — required for analyze/chat |
-| `ACCESS_PASSCODE` | Shared passcode gating the app (see `src/lib/auth.ts`) |
 | `BLOB_READ_WRITE_TOKEN` | Leave unset locally; set once a Vercel Blob store is attached |
 
 ## Data model
