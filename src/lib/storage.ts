@@ -1,7 +1,9 @@
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 
-const USE_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN;
+// @vercel/blob authenticates either via BLOB_READ_WRITE_TOKEN or, when a store
+// is connected to this project, automatically via Vercel's OIDC token + BLOB_STORE_ID.
+const USE_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN || !!process.env.BLOB_STORE_ID;
 const LOCAL_UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 
 export async function storeFile(
