@@ -2,6 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import Header from "@/components/Header";
 
+export const dynamic = "force-dynamic";
+
 const RATE = { base: 7000, rw: { "871": 1.9425, "872": 1.0299 } as Record<string, number> };
 const fmt = (n: number | null) => (n == null ? "—" : "$" + n.toLocaleString());
 const payFor = (drg: string) => (RATE.rw[drg] ? Math.round(RATE.rw[drg] * RATE.base) : null);
