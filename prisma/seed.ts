@@ -1,3 +1,10 @@
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "../src/generated/prisma/client";
+import "dotenv/config";
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
+
 const CASES = [
   {
     id: "CLM-SEP-0142",
@@ -9,8 +16,8 @@ const CASES = [
     claim: [
       { code: "A41.51", desc: "Sepsis due to Escherichia coli", role: "PDX" },
       { code: "R65.21", desc: "Severe sepsis with septic shock", role: "MCC" },
-      { code: "N17.9",  desc: "Acute kidney injury, unspecified", role: "MCC" },
-      { code: "N39.0",  desc: "Urinary tract infection, site not specified", role: "CC" }
+      { code: "N17.9", desc: "Acute kidney injury, unspecified", role: "MCC" },
+      { code: "N39.0", desc: "Urinary tract infection, site not specified", role: "CC" },
     ],
     record: `68 F presented to ED with 2 days of dysuria, fever, and progressive confusion.
 
@@ -20,7 +27,7 @@ Resuscitated with 30 mL/kg crystalloid; MAP remained <65 mmHg. Norepinephrine in
 
 Hospital course: hemodynamics stabilized by day 2, pressors weaned, creatinine returned toward baseline (1.1) by discharge, mental status cleared. Discharged day 6 on oral antibiotics.
 
-Assessment: Severe sepsis with septic shock secondary to E. coli urosepsis; acute kidney injury, resolving.`
+Assessment: Severe sepsis with septic shock secondary to E. coli urosepsis; acute kidney injury, resolving.`,
   },
   {
     id: "CLM-SEP-0177",
@@ -30,9 +37,9 @@ Assessment: Severe sepsis with septic shock secondary to E. coli urosepsis; acut
     drgBilledDesc: "Sepsis w/o MV >96h — WITH MCC",
     charge: 39400,
     claim: [
-      { code: "A41.9",  desc: "Sepsis, unspecified organism", role: "PDX" },
+      { code: "A41.9", desc: "Sepsis, unspecified organism", role: "PDX" },
       { code: "J96.00", desc: "Acute respiratory failure, unspecified", role: "MCC" },
-      { code: "J18.9",  desc: "Pneumonia, unspecified organism", role: "CC" }
+      { code: "J18.9", desc: "Pneumonia, unspecified organism", role: "CC" },
     ],
     record: `74 M with COPD admitted from clinic with 3 days of productive cough, fever, and dyspnea.
 
@@ -44,7 +51,7 @@ Hemodynamics: single transient hypotensive episode on arrival, fluid-responsive;
 
 Hospital course: afebrile by day 2, improving oxygenation, discharged day 4.
 
-Assessment: CAP with sepsis; hypoxia improved; respiratory status stable on low-flow oxygen.`
+Assessment: CAP with sepsis; hypoxia improved; respiratory status stable on low-flow oxygen.`,
   },
   {
     id: "CLM-SEP-0203",
@@ -56,7 +63,7 @@ Assessment: CAP with sepsis; hypoxia improved; respiratory status stable on low-
     claim: [
       { code: "A41.9", desc: "Sepsis, unspecified organism", role: "PDX" },
       { code: "N17.9", desc: "Acute kidney injury, unspecified", role: "MCC" },
-      { code: "N39.0", desc: "Urinary tract infection, site not specified", role: "CC" }
+      { code: "N39.0", desc: "Urinary tract infection, site not specified", role: "CC" },
     ],
     record: `81 F, history of CKD stage 3 (baseline creatinine noted in problem list as "chronic, ~1.6"), nursing-home resident, brought in for lethargy and decreased oral intake.
 
@@ -66,7 +73,7 @@ No prior baseline creatinine available in the current record beyond the problem-
 
 Physician note states "possible urosepsis vs UTI"; there is no explicit statement establishing sepsis versus localized UTI, and no documentation clarifying whether the elevated creatinine represents acute kidney injury superimposed on CKD or the chronic baseline.
 
-Started on empiric ceftriaxone and IV fluids. Plan to trend renal function and follow cultures.`
+Started on empiric ceftriaxone and IV fluids. Plan to trend renal function and follow cultures.`,
   },
   {
     id: "CLM-SEP-0241",
@@ -77,9 +84,9 @@ Started on empiric ceftriaxone and IV fluids. Plan to trend renal function and f
     charge: 52100,
     claim: [
       { code: "A41.59", desc: "Other gram-negative sepsis (Klebsiella)", role: "PDX" },
-      { code: "N17.9",  desc: "Acute kidney injury, unspecified", role: "MCC" },
+      { code: "N17.9", desc: "Acute kidney injury, unspecified", role: "MCC" },
       { code: "K83.09", desc: "Cholangitis, unspecified", role: "CC" },
-      { code: "E11.9",  desc: "Type 2 diabetes mellitus w/o complications", role: "CC" }
+      { code: "E11.9", desc: "Type 2 diabetes mellitus w/o complications", role: "CC" },
     ],
     record: `71 M with type 2 diabetes and recent ERCP for choledocholithiasis (2 weeks prior) presented with 2 days of worsening right upper quadrant pain, fever, and jaundice consistent with Charcot's triad.
 
@@ -89,7 +96,7 @@ Blood cultures ×2 — both positive for Klebsiella pneumoniae. Emergent ERCP wi
 
 Creatinine trended: 2.1 → 1.8 → 1.3 → 0.9. Urine output maintained >0.5 mL/kg/hr throughout.
 
-Assessment: Klebsiella pneumoniae sepsis secondary to acute obstructive cholangitis; acute kidney injury (KDIGO stage 2), resolved.`
+Assessment: Klebsiella pneumoniae sepsis secondary to acute obstructive cholangitis; acute kidney injury (KDIGO stage 2), resolved.`,
   },
   {
     id: "CLM-SEP-0258",
@@ -99,9 +106,9 @@ Assessment: Klebsiella pneumoniae sepsis secondary to acute obstructive cholangi
     drgBilledDesc: "Sepsis w/o MV >96h — WITH MCC",
     charge: 37800,
     claim: [
-      { code: "A41.02",   desc: "Sepsis due to MRSA", role: "PDX" },
-      { code: "R65.21",   desc: "Severe sepsis with septic shock", role: "MCC" },
-      { code: "T80.211A", desc: "BSI due to central venous catheter, initial", role: "CC" }
+      { code: "A41.02", desc: "Sepsis due to MRSA", role: "PDX" },
+      { code: "R65.21", desc: "Severe sepsis with septic shock", role: "MCC" },
+      { code: "T80.211A", desc: "BSI due to central venous catheter, initial", role: "CC" },
     ],
     record: `63 M with stage IIIA colon cancer on cycle 4 of FOLFOX chemotherapy via tunneled PICC line, presented with 3 days of fevers, rigors, and mild confusion.
 
@@ -111,8 +118,54 @@ Peripheral blood cultures ×2: MRSA. PICC line cultures: 4/4 bottles MRSA, diffe
 
 IV vancomycin started. Repeat cultures day 2: negative. TEE: no vegetations.
 
-Assessment: MRSA catheter-related bloodstream infection (CLABSI); sepsis with encephalopathy. Septic shock documented by admitting physician based on transient hypotensive episode on arrival.`
-  }
+Assessment: MRSA catheter-related bloodstream infection (CLABSI); sepsis with encephalopathy. Septic shock documented by admitting physician based on transient hypotensive episode on arrival.`,
+  },
 ];
 
-module.exports = { CASES };
+async function main() {
+  for (const c of CASES) {
+    const existing = await prisma.claim.findUnique({ where: { claimNumber: c.id } });
+    if (existing) {
+      console.log(`skip ${c.id} (already seeded)`);
+      continue;
+    }
+
+    const claim = await prisma.claim.create({
+      data: {
+        claimNumber: c.id,
+        patientName: c.name,
+        patientDemo: c.demo,
+        drgBilled: c.drgBilled,
+        drgBilledDesc: c.drgBilledDesc,
+        charge: c.charge,
+        seedSource: true,
+        status: "OCR_COMPLETE",
+        diagnoses: {
+          create: c.claim.map((d) => ({ code: d.code, desc: d.desc, role: d.role as "PDX" | "MCC" | "CC" })),
+        },
+        charts: {
+          create: {
+            fileName: `${c.id}-seed-record.txt`,
+            fileType: "text/plain",
+            status: "OCR_COMPLETE",
+            hocrFiles: {
+              create: {
+                extractedText: c.record,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    console.log(`seeded ${claim.claimNumber}`);
+  }
+
+  await prisma.$disconnect();
+}
+
+main().catch(async (err) => {
+  console.error(err);
+  await prisma.$disconnect();
+  process.exit(1);
+});

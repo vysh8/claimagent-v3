@@ -1,0 +1,126 @@
+// ClaimAgent v3 — prepay DRG sepsis claim review
+// learn more about the schema in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ClaimStatus {
+  NEW
+  CHART_UPLOADED
+  OCR_COMPLETE
+  ANALYZED
+  REVIEWED
+}
+
+enum DiagnosisRole {
+  PDX
+  MCC
+  CC
+}
+
+enum ChartStatus {
+  UPLOADED
+  OCR_PROCESSING
+  OCR_COMPLETE
+  FAILED
+}
+
+enum ChatRole {
+  USER
+  ASSISTANT
+}
+
+model Claim {
+  id             String      @id @default(cuid())
+  claimNumber    String      @unique
+  patientName    String
+  patientDemo    String
+  drgBilled      String
+  drgBilledDesc  String
+  charge         Int
+  status         ClaimStatus @default(NEW)
+  seedSource     Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  diagnoses      ClaimDiagnosis[]
+  charts         MedicalChart[]
+  analyses       AnalysisResult[]
+  messages       ChatMessage[]
+}
+
+model ClaimDiagnosis {
+  id      String        @id @default(cuid())
+  claimId String
+  claim   Claim         @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  code    String
+  desc    String
+  role    DiagnosisRole
+
+  @@index([claimId])
+}
+
+model MedicalChart {
+  id        String      @id @default(cuid())
+  claimId   String
+  claim     Claim       @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  fileName  String
+  fileType  String
+  blobUrl   String?
+  status    ChartStatus @default(UPLOADED)
+  createdAt DateTime    @default(now())
+
+  hocrFiles HocrFile[]
+
+  @@index([claimId])
+}
+
+model HocrFile {
+  id            String       @id @default(cuid())
+  chartId       String
+  chart         MedicalChart @relation(fields: [chartId], references: [id], onDelete: Cascade)
+  blobUrl       String?
+  extractedText String       @db.Text
+  pageNumber    Int          @default(1)
+  createdAt     DateTime     @default(now())
+
+  @@index([chartId])
+}
+
+model AnalysisResult {
+  id                String   @id @default(cuid())
+  claimId           String
+  claim             Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  steps             Json
+  disposition       String
+  drgFinal          String
+  verdict           String
+  narrative         String   @db.Text
+  recommend         String   @db.Text
+  guidelinesApplied Json
+  payment           Json
+  createdAt         DateTime @default(now())
+
+  messages          ChatMessage[]
+
+  @@index([claimId])
+}
+
+model ChatMessage {
+  id         String          @id @default(cuid())
+  claimId    String
+  claim      Claim           @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  analysisId String?
+  analysis   AnalysisResult? @relation(fields: [analysisId], references: [id], onDelete: SetNull)
+  role       ChatRole
+  content    String          @db.Text
+  createdAt  DateTime        @default(now())
+
+  @@index([claimId])
+}
