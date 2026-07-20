@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
+import AppShell from "@/components/AppShell";
 
 type DiagRow = { code: string; desc: string; role: "PDX" | "MCC" | "CC" };
 
@@ -61,10 +61,9 @@ export default function NewClaimPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1 px-6 py-6 max-w-2xl w-full mx-auto">
-        <h1 className="serif text-2xl font-semibold mb-1">New claim</h1>
+    <AppShell>
+      <div className="px-6 py-6 max-w-2xl w-full mx-auto">
+        <h1 className="text-2xl font-medium mb-1">New claim</h1>
         <p className="text-sm mb-6" style={{ color: "var(--ink-soft)" }}>
           Enter the claim as submitted. Upload the medical chart on the next screen to run OCR and the review agent.
         </p>
@@ -132,18 +131,18 @@ export default function NewClaimPage() {
             </div>
           </div>
 
-          {error && <p className="text-sm" style={{ color: "var(--rose)" }}>{error}</p>}
+          {error && <p className="text-sm" style={{ color: "var(--bad)" }}>{error}</p>}
 
           <button type="submit" disabled={submitting} className="btn btn-primary self-start mt-2">
             {submitting ? "Creating…" : "Create claim"}
           </button>
         </form>
-      </main>
+      </div>
 
       <style>{`
         .input {
           width: 100%;
-          border: 1px solid var(--line);
+          border: 0.5px solid var(--line);
           background: var(--card);
           border-radius: 8px;
           padding: 8px 11px;
@@ -152,10 +151,10 @@ export default function NewClaimPage() {
         }
         .input:focus {
           outline: none;
-          border-color: var(--primary);
+          border-color: var(--teal-mid);
         }
       `}</style>
-    </div>
+    </AppShell>
   );
 }
 

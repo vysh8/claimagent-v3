@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
-import Header from "@/components/Header";
+import AppShell from "@/components/AppShell";
 import ClaimDetail from "@/components/ClaimDetail";
 
 export const dynamic = "force-dynamic";
@@ -21,11 +21,10 @@ export default async function ClaimPage({ params }: { params: Promise<{ id: stri
   if (!claim) notFound();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1 px-6 py-6 max-w-6xl w-full mx-auto">
+    <AppShell>
+      <div className="px-6 py-6 max-w-6xl w-full mx-auto">
         <ClaimDetail initialClaim={JSON.parse(JSON.stringify(claim))} />
-      </main>
-    </div>
+      </div>
+    </AppShell>
   );
 }

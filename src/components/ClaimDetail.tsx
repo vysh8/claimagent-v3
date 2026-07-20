@@ -182,7 +182,7 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
   return (
     <div>
       <div className="mb-5">
-        <h1 className="serif text-2xl font-semibold">{claim.patientName}</h1>
+        <h1 className="text-2xl font-medium">{claim.patientName}</h1>
         <div className="text-sm" style={{ color: "var(--ink-soft)" }}>
           Claim <span className="mono">{claim.claimNumber}</span> · {claim.patientDemo} · billed charge{" "}
           <span className="mono">{fmt(claim.charge)}</span>
@@ -199,7 +199,7 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
             <div className="p-4">
               <div
                 className="flex items-center gap-3 rounded-[9px] p-3.5 mb-3.5 text-white"
-                style={{ background: "linear-gradient(135deg,#11302c,#0a4d45)" }}
+                style={{ background: "var(--teal-deep)" }}
               >
                 <div>
                   <div className="text-[10px] uppercase tracking-wide opacity-70">Billed DRG</div>
@@ -238,7 +238,7 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
               {(ocrBusy || ocrError) && ocrStatus && (
                 <div
                   className="text-xs mb-3 flex items-center gap-2"
-                  style={{ color: ocrError ? "var(--rose)" : "var(--ink-soft)" }}
+                  style={{ color: ocrError ? "var(--bad)" : "var(--ink-soft)" }}
                 >
                   {ocrBusy && <span className="spinner" />} {ocrStatus}
                 </div>
@@ -262,7 +262,7 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="underline"
-                          style={{ color: "var(--primary-deep)" }}
+                          style={{ color: "var(--teal-deep)" }}
                         >
                           View HOCR{latestChart.hocrFiles.length > 1 ? ` (p.${h.pageNumber})` : ""}
                         </a>
@@ -349,10 +349,10 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
                         style={{
                           color:
                             analysis.payment.impactType === "zero"
-                              ? "var(--emerald)"
+                              ? "var(--ok)"
                               : analysis.payment.impactType === "risk"
-                              ? "var(--amber)"
-                              : "var(--rose)",
+                              ? "var(--warn)"
+                              : "var(--bad)",
                         }}
                       >
                         {analysis.payment.impact === 0 ? "$0" : (analysis.disposition === "pend" ? "≥ " : "") + fmt(analysis.payment.impact)}
