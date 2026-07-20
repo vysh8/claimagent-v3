@@ -18,6 +18,15 @@
         "cd /Users/vanamala/Desktop/claimagentv3 && export NVM_DIR=\"$HOME/.nvm\"; [ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"; nvm use 22 >/dev/null; npx next start -p 3001"
       ],
       "port": 3001
+    },
+    {
+      "name": "claimagent-v3-studio-prod",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "cd /Users/vanamala/Desktop/claimagentv3 && export NVM_DIR=\"$HOME/.nvm\"; [ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"; nvm use 22 >/dev/null; DATABASE_URL=\"postgresql://neondb_owner:npg_y7przTKR5GQF@ep-little-water-awvof3fe-pooler.c-12.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require\" npx prisma studio -p 5555 -b none"
+      ],
+      "port": 5555
     }
   ]
 }

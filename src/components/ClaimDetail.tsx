@@ -251,9 +251,23 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
               )}
               {latestChart && (
                 <>
-                  <div className="text-xs mb-2 flex items-center gap-2" style={{ color: "var(--ink-faint)" }}>
+                  <div className="text-xs mb-2 flex items-center gap-2 flex-wrap" style={{ color: "var(--ink-faint)" }}>
                     <span className="mono">{latestChart.fileName}</span>
                     <span className="chip pending">{latestChart.status.replace("_", " ").toLowerCase()}</span>
+                    {latestChart.hocrFiles.map((h) =>
+                      h.blobUrl ? (
+                        <a
+                          key={h.id}
+                          href={h.blobUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline"
+                          style={{ color: "var(--primary-deep)" }}
+                        >
+                          View HOCR{latestChart.hocrFiles.length > 1 ? ` (p.${h.pageNumber})` : ""}
+                        </a>
+                      ) : null
+                    )}
                   </div>
                   <div className="mono text-xs whitespace-pre-wrap p-3 rounded-lg max-h-80 overflow-y-auto" style={{ color: "var(--ink-soft)", background: "rgba(28,32,36,.02)" }}>
                     {record || "(no extracted text yet)"}
