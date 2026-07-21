@@ -5,7 +5,7 @@ import { runOcr } from "@/lib/ocr-client";
 
 type Diagnosis = { id: string; code: string; desc: string; role: "PDX" | "MCC" | "CC" };
 type HocrFile = { id: string; extractedText: string; pageNumber: number; blobUrl: string | null };
-type Chart = { id: string; fileName: string; fileType: string; status: string; hocrFiles: HocrFile[] };
+type Chart = { id: string; fileName: string; fileType: string; status: string; createdAt: string; hocrFiles: HocrFile[] };
 type AnalysisStep = { s: "pass" | "fail" | "warn"; t: string; d: string; e: string; cite: string };
 type Analysis = {
   id: string;
@@ -273,6 +273,39 @@ export default function ClaimDetail({ initialClaim }: { initialClaim: Claim }) {
                     {record || "(no extracted text yet)"}
                   </div>
                 </>
+              )}
+
+              {claim.charts.length > 1 && (
+                <div className="mt-4 pt-3" style={{ borderTop: "0.5px solid var(--line)" }}>
+                  <div className="text-[11px] uppercase tracking-wide font-medium mb-2" style={{ color: "var(--ink-faint)" }}>
+                    Upload history ({claim.charts.length})
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {claim.charts.map((c, i) => (
+                      <div key={c.id} className="flex items-center gap-2 text-xs flex-wrap">
+                        <span className="chip" style={{ background: i === 0 ? "var(--teal-pale)" : "var(--line-soft)", color: i === 0 ? "var(--teal-deep)" : "var(--ink-faint)" }}>
+                          {i === 0 ? "current" : "prior"}
+                        </span>
+                        <span className="mono" style={{ color: "var(--ink-soft)" }}>{c.fileName}</span>
+                        <span style={{ color: "var(--ink-faint)" }}>{new Date(c.createdAt).toLocaleString()}</span>
+                        {c.hocrFiles.map((h) =>
+                          h.blobUrl ? (
+                            <a
+                              key={h.id}
+                              href={h.blobUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline"
+                              style={{ color: "var(--teal-deep)" }}
+                            >
+                              View HOCR
+                            </a>
+                          ) : null
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
           </div>

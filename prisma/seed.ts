@@ -16,7 +16,6 @@ const CASES = [
     claim: [
       { code: "A41.51", desc: "Sepsis due to Escherichia coli", role: "PDX" },
       { code: "R65.21", desc: "Severe sepsis with septic shock", role: "MCC" },
-      { code: "J96.00", desc: "Acute respiratory failure, unspecified", role: "MCC" },
       { code: "N39.0", desc: "Urinary tract infection, site not specified", role: "CC" },
     ],
   },
