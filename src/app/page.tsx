@@ -17,7 +17,7 @@ export default function Home() {
             Built for payers
           </div>
           <h1 className="text-4xl md:text-5xl font-medium tracking-tight text-balance mb-5">
-            Prepay to prior auth — one AI platform for payers
+            Payer operations, fully agentic.
           </h1>
           <p className="text-base md:text-lg mb-9 max-w-2xl mx-auto" style={{ color: "var(--ink-soft)" }}>
             TranHealthcare builds citation-backed AI agents for the clinical and financial reviews payers run every
@@ -26,7 +26,7 @@ export default function Home() {
           </p>
           <div className="flex items-center justify-center gap-3">
             <Link href="/claims" className="btn btn-primary">
-              Explore Claim Review →
+              Explore Tran Review →
             </Link>
             <Link href="#solutions" className="btn btn-ghost">
               See all solutions
@@ -74,7 +74,7 @@ export default function Home() {
               <div className="text-[11px] uppercase tracking-wide font-semibold mb-2 opacity-80">
                 Live today
               </div>
-              <h3 className="text-xl md:text-2xl font-medium mb-2 text-white">Prepay Claim Review</h3>
+              <h3 className="text-xl md:text-2xl font-medium mb-2 text-white">Tran Review</h3>
               <p className="text-sm opacity-90 max-w-xl">
                 Upload a medical chart, watch OCR extract the record, and get a citation-backed DRG validation in
                 under a minute — with dollar impact computed from verified CMS rate tables, not guessed by the model.
@@ -85,7 +85,7 @@ export default function Home() {
               className="btn self-start md:self-center flex-shrink-0"
               style={{ background: "var(--clay)", color: "#fff" }}
             >
-              Open Claim Review →
+              Open Tran Review →
             </Link>
           </div>
         </section>

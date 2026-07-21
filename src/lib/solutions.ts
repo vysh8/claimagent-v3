@@ -11,9 +11,9 @@ export type Solution = {
 export const SOLUTIONS: Solution[] = [
   {
     slug: "claim-review",
-    name: "Prepay Claim Review",
+    name: "Tran Review",
     status: "live",
-    tagline: "Validate DRG coding against documentation before a claim is paid",
+    tagline: "Agentic AI solution for validating DRG coding against clinical documentation before a claim is paid",
     description:
       "An AI agent reads the uploaded medical chart, checks every coded diagnosis against ICD-10-CM guidelines, AHA Coding Clinic, and clinical criteria, and returns a citation-backed disposition — validate, recode, or pend for physician query.",
     href: "/claims",
@@ -21,9 +21,9 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     slug: "prior-auth",
-    name: "Prior Authorization",
+    name: "Tran Auth",
     status: "soon",
-    tagline: "Faster, defensible decisions on requested procedures",
+    tagline: "Agentic AI solution for faster, defensible prior authorization decisions",
     description:
       "Automates medical-necessity review against payer policy at request time, reducing turnaround from days to minutes while keeping every decision auditable and guideline-cited.",
     href: "/solutions/prior-auth",
@@ -35,9 +35,9 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     slug: "payment-integrity",
-    name: "Payment Integrity & FWA Detection",
+    name: "Tran Integrity",
     status: "soon",
-    tagline: "Surface fraud, waste, and abuse patterns before payment",
+    tagline: "Agentic AI solution for surfacing fraud, waste, and abuse before payment",
     description:
       "Applies pattern detection across claims volume to flag outlier billing behavior, upcoding patterns, and provider-level anomalies for special investigations review.",
     href: "/solutions/payment-integrity",
@@ -49,9 +49,9 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     slug: "utilization-management",
-    name: "Utilization Management",
+    name: "Tran UM",
     status: "soon",
-    tagline: "Continued-stay and concurrent review, grounded in InterQual/MCG-style criteria",
+    tagline: "Agentic AI solution for continued-stay and concurrent utilization review",
     description:
       "Reviews ongoing inpatient stays and extended therapy courses against evidence-based criteria to confirm continued medical necessity, flagging cases ready for step-down or discharge planning.",
     href: "/solutions/utilization-management",

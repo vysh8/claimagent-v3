@@ -17,11 +17,8 @@ export default function MarketingNav() {
       </Link>
       <nav className="hidden sm:flex items-center gap-7 text-[13px] font-medium" style={{ color: "var(--ink-soft)" }}>
         <Link href="/#solutions">Solutions</Link>
-        <Link href="/claims">Claim Review</Link>
+        <Link href="/claims">Tran Review</Link>
       </nav>
-      <Link href="/claims" className="btn btn-primary btn-sm">
-        Open Claim Review →
-      </Link>
     </header>
   );
 }
