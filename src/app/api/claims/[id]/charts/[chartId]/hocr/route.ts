@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { storeFile } from "@/lib/storage";
+import { parseHocrWords } from "@/lib/hocr-parse";
 
 export async function POST(
   req: NextRequest,
@@ -32,6 +33,13 @@ export async function POST(
       pageNumber: Number(pageNumber) || 1,
     },
   });
+
+  const words = parseHocrWords(hocr);
+  if (words.length > 0) {
+    await prisma.hocrWord.createMany({
+      data: words.map((w) => ({ ...w, hocrFileId: hocrFile.id })),
+    });
+  }
 
   await prisma.medicalChart.update({ where: { id: chartId }, data: { status: "OCR_COMPLETE" } });
   await prisma.claim.update({ where: { id: claimId }, data: { status: "OCR_COMPLETE" } });

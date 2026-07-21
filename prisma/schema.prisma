@@ -90,7 +90,31 @@ model HocrFile {
   pageNumber    Int          @default(1)
   createdAt     DateTime     @default(now())
 
+  words         HocrWord[]
+
   @@index([chartId])
+}
+
+// One row per OCR'd word -- the normalized, queryable breakdown of a HocrFile's
+// raw markup (word, bounding box, line, confidence-adjacent metadata), mirroring
+// the flat per-word table format used elsewhere for OCR data warehousing.
+model HocrWord {
+  id          String   @id @default(cuid())
+  hocrFileId  String
+  hocrFile    HocrFile @relation(fields: [hocrFileId], references: [id], onDelete: Cascade)
+  offset      Int
+  endOffset   Int
+  word        String
+  nlpWord     String
+  x1          Int
+  y1          Int
+  x2          Int
+  y2          Int
+  orientation String   @default("H")
+  lineNo      Int
+  confidence  Int?
+
+  @@index([hocrFileId])
 }
 
 model AnalysisResult {
