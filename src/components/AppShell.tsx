@@ -12,9 +12,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             className="w-[26px] h-[26px] rounded-[6px] grid place-items-center text-white text-xs font-semibold"
             style={{ background: "var(--clay)" }}
           >
-            CA
+            TR
           </div>
-          <span className="text-white font-semibold text-[14.5px] tracking-tight">ClaimAgent</span>
+          <span className="text-white font-semibold text-[14.5px] tracking-tight">TranReview</span>
         </Link>
 
         <nav className="flex flex-col gap-0.5">

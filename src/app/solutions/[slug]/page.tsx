@@ -54,10 +54,10 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           style={{ background: "var(--teal-pale)" }}
         >
           <p className="text-sm" style={{ color: "var(--teal-deep)" }}>
-            Want to see what's live today? Tran Review is fully built and ready to try.
+            Want to see what's live today? TranReview is fully built and ready to try.
           </p>
           <Link href="/claims" className="btn btn-primary flex-shrink-0">
-            Open Tran Review →
+            Open TranReview →
           </Link>
         </div>
       </main>

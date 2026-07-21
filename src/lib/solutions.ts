@@ -11,7 +11,7 @@ export type Solution = {
 export const SOLUTIONS: Solution[] = [
   {
     slug: "claim-review",
-    name: "Tran Review",
+    name: "TranReview",
     status: "live",
     tagline: "Agentic AI solution for validating DRG coding against clinical documentation before a claim is paid",
     description:
@@ -21,7 +21,7 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     slug: "prior-auth",
-    name: "Tran Auth",
+    name: "TranAuth",
     status: "soon",
     tagline: "Agentic AI solution for faster, defensible prior authorization decisions",
     description:
@@ -35,7 +35,7 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     slug: "payment-integrity",
-    name: "Tran Integrity",
+    name: "TranIntegrity",
     status: "soon",
     tagline: "Agentic AI solution for surfacing fraud, waste, and abuse before payment",
     description:
@@ -49,7 +49,7 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     slug: "utilization-management",
-    name: "Tran UM",
+    name: "TranUM",
     status: "soon",
     tagline: "Agentic AI solution for continued-stay and concurrent utilization review",
     description:

@@ -17,7 +17,7 @@ export default function MarketingNav() {
       </Link>
       <nav className="hidden sm:flex items-center gap-7 text-[13px] font-medium" style={{ color: "var(--ink-soft)" }}>
         <Link href="/#solutions">Solutions</Link>
-        <Link href="/claims">Tran Review</Link>
+        <Link href="/claims">TranReview</Link>
       </nav>
     </header>
   );

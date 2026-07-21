@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ClaimAgent · Prepay DRG Validation",
+  title: "TranReview · Prepay DRG Validation",
   description: "Prepay DRG sepsis claim review with a chart -> OCR -> HOCR -> AI review pipeline",
 };
 
