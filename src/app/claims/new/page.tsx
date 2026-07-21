@@ -71,7 +71,7 @@ export default function NewClaimPage() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4">
             <Field label="Claim number">
-              <input required value={claimNumber} onChange={(e) => setClaimNumber(e.target.value)} className="input" placeholder="CLM-SEP-0301" />
+              <input required value={claimNumber} onChange={(e) => setClaimNumber(e.target.value)} className="input" placeholder="20481573920" />
             </Field>
             <Field label="Billed charge ($)">
               <input required type="number" value={charge} onChange={(e) => setCharge(e.target.value)} className="input" placeholder="42000" />
