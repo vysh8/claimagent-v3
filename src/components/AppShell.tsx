@@ -33,10 +33,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </span>
         </nav>
 
-        <div className="mt-auto text-[11px] leading-relaxed" style={{ color: "#7fa0a0" }}>
-          Synthetic data only · No PHI
-          <br />
-          Prepay DRG validation · Sepsis
+        <div className="mt-auto flex flex-col gap-2.5">
+          <Link href="/" className="text-[11px] font-medium" style={{ color: "#a9c7c6" }}>
+            ← TranHealthcare
+          </Link>
+          <div className="text-[11px] leading-relaxed" style={{ color: "#7fa0a0" }}>
+            Synthetic data only · No PHI
+            <br />
+            Prepay DRG validation · Sepsis
+          </div>
         </div>
       </aside>
 
