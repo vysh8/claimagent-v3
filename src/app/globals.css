@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #12201e;
-  --ink-soft: #425250;
-  --ink-faint: #748482;
-  --teal-deep: #14424a;
-  --teal-mid: #2b6e75;
-  --teal-pale: #e4eeee;
-  --paper: #f3f6f5;
+  --ink: #1b2620;
+  --ink-soft: #4d5c53;
+  --ink-faint: #7d8a7f;
+  --teal-deep: #1f3d2e;
+  --teal-mid: #3f6b4e;
+  --teal-pale: #e7ede8;
+  --paper: #f5f4ef;
   --card: #ffffff;
-  --line: #dce4e2;
-  --line-soft: #e8edec;
-  --clay: #b8622e;
-  --clay-deep: #8f4a20;
-  --clay-pale: #f5e3d6;
+  --line: #ddd9cd;
+  --line-soft: #e8e4d8;
+  --clay: #c99a52;
+  --clay-deep: #a67d3d;
+  --clay-pale: #f3e9d4;
   --ok: #3f7a4e;
   --ok-bg: #e5f0e6;
   --warn: #a6790e;
@@ -32,15 +32,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #eaf1ef;
-    --ink-soft: #aec0bd;
-    --ink-faint: #7e938f;
-    --paper: #0d1615;
-    --card: #152321;
-    --line: #243634;
-    --line-soft: #1d2c2a;
-    --teal-pale: #1b3538;
-    --clay-pale: #3a281d;
+    --ink: #eaf1e9;
+    --ink-soft: #b5c2b8;
+    --ink-faint: #869383;
+    --paper: #0e1512;
+    --card: #16211b;
+    --line: #263028;
+    --line-soft: #1e2721;
+    --teal-pale: #23342a;
+    --clay-pale: #3a2f1c;
     --ok-bg: #173325;
     --warn-bg: #332a12;
     --bad-bg: #331c1a;
@@ -48,30 +48,30 @@
 }
 
 :root[data-theme="dark"] {
-  --ink: #eaf1ef;
-  --ink-soft: #aec0bd;
-  --ink-faint: #7e938f;
-  --paper: #0d1615;
-  --card: #152321;
-  --line: #243634;
-  --line-soft: #1d2c2a;
-  --teal-pale: #1b3538;
-  --clay-pale: #3a281d;
+  --ink: #eaf1e9;
+  --ink-soft: #b5c2b8;
+  --ink-faint: #869383;
+  --paper: #0e1512;
+  --card: #16211b;
+  --line: #263028;
+  --line-soft: #1e2721;
+  --teal-pale: #23342a;
+  --clay-pale: #3a2f1c;
   --ok-bg: #173325;
   --warn-bg: #332a12;
   --bad-bg: #331c1a;
 }
 
 :root[data-theme="light"] {
-  --ink: #12201e;
-  --ink-soft: #425250;
-  --ink-faint: #748482;
-  --paper: #f3f6f5;
+  --ink: #1b2620;
+  --ink-soft: #4d5c53;
+  --ink-faint: #7d8a7f;
+  --paper: #f5f4ef;
   --card: #ffffff;
-  --line: #dce4e2;
-  --line-soft: #e8edec;
-  --teal-pale: #e4eeee;
-  --clay-pale: #f5e3d6;
+  --line: #ddd9cd;
+  --line-soft: #e8e4d8;
+  --teal-pale: #e7ede8;
+  --clay-pale: #f3e9d4;
   --ok-bg: #e5f0e6;
   --warn-bg: #f6ecd6;
   --bad-bg: #f5e1df;

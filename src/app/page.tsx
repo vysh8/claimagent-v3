@@ -10,11 +10,14 @@ export default function Home() {
 
       <main className="flex-1">
         <section className="px-6 md:px-10 pt-16 pb-14 max-w-4xl mx-auto text-center">
-          <div
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold rounded-full px-3 py-1.5 mb-6"
-            style={{ color: "var(--teal-deep)", background: "var(--teal-pale)" }}
-          >
-            Built for payers
+          <div className="inline-flex items-center gap-2.5 mb-8">
+            <div
+              className="w-8 h-8 rounded-[9px] grid place-items-center text-white text-xs font-semibold"
+              style={{ background: "var(--teal-deep)" }}
+            >
+              TH
+            </div>
+            <span className="font-semibold text-[16px] tracking-tight">TranHealthcare</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-medium tracking-tight text-balance mb-5">
             Payer operations, fully agentic.
